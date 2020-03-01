@@ -1,6 +1,8 @@
 # lottoland-test
 ```
-Access-Control-Allow-Origin is not configured in the Server. If you can't see the data in the table, try adding a plugin (Moesif CORS for Chrome for example) for your browser.
+Access-Control-Allow-Origin is not configured in the Server. 
+If you can't see the data in the table, try adding a plugin.
+(Moesif CORS for Chrome for example) for your browser.
 ```
 ## Project setup
 ```
