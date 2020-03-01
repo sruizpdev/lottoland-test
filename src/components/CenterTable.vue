@@ -68,3 +68,21 @@ export default {
   }
 };
 </script>
+<style scoped>
+.table {
+  text-align: left;
+ 
+  border: 1px #d8d8d8 solid;
+  border-spacing: 0px;
+}
+td {
+  padding: 10px 0px 10px 0px;
+}
+td {
+  border-bottom: 1px #d8d8d8 solid;
+}
+.tier {
+  width: 10%;
+  padding: 14px;
+}
+</style>
