@@ -10,7 +10,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, index) in table" :key="item" class="linea">
+        <tr v-for="(item, index) in table" :key="item.orden" class="linea">
           <td class="tier">{{getRomanNumber(index)}}</td>
           <td class="match">{{getText(index)}}</td>
           <td class="winners">{{item.winners}}x</td>

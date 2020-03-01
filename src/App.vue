@@ -29,6 +29,56 @@ export default {
     Numbers,
     CenterTable
   },
+  methods: {
+    comas(str) {
+      str = str.toString();
+      switch (str.length) {
+        case 10:
+          str =
+            str.slice(0, 2) +
+            "," +
+            str.slice(2, 5) +
+            "." +
+            str.slice(5, 8) +
+            "." +
+            str.slice(8, 10);
+          break;
+        case 9:
+          str =
+            str.slice(0, 1) +
+            "," +
+            str.slice(1, 4) +
+            "." +
+            str.slice(4, 7) +
+            "." +
+            str.slice(7, 9);
+          break;
+        case 8:
+          str = str.slice(0, 3) + "," + str.slice(3, 6) + "." + str.slice(6, 8);
+          break;
+        case 7:
+          str = str.slice(0, 2) + "," + str.slice(2, 5) + "." + str.slice(5, 7);
+          break;
+        case 6:
+          str = str.slice(0, 1) + "," + str.slice(1, 4) + "." + str.slice(4, 6);
+          break;
+        case 5:
+          str = str.slice(0, 3) + "," + str.slice(3, 5);
+          break;
+        case 4:
+          str = str.slice(0, 2) + "," + str.slice(2, 4);
+          break;
+        case 3:
+          str = str.slice(0, 1) + "," + str.slice(1, 3);
+          break;
+      }
+      return str;
+    }
+      
+  
+    
+  },
+  
   data() {
     return {
       numbers: [],
@@ -48,10 +98,17 @@ export default {
         this.date = response.data.last.date;
 
         for (let i in this.tableContent) {
-          this.tableContent[i].prize = this.tableContent[i].prize;
-          this.tableContent[i].winners = this.tableContent[i].winners;
+          this.tableContent[i].orden =  this.tableContent[i].prize;
+          this.tableContent[i].prize = this.comas(this.tableContent[i].prize);
+          this.tableContent[i].winners = this.comas(
+            this.tableContent[i].winners
+          );
           this.table.push(this.tableContent[i]);
         }
+        
+        
+        this.table.shift();
+        this.table.sort((a, b) => b.orden - a.orden);
       })
       .catch(error => {
         console.log(error);
