@@ -4,6 +4,7 @@
       <b-row>
         <div class="banner">
           <h2>EUROJACKPOT RESULTS & WINNING NUMBERS</h2>
+          <span class="cors">Access-Control-Allow-Origin is not configured in the Server. If you can't see the data in the table, try adding a plugin (Moesif <span class="red">CORS</span> for Chrome for example) for your browser.</span>
         </div>
       </b-row>
       <b-row>
@@ -13,21 +14,44 @@
         <b-col cols="9">
           <CenterTable :table="table"></CenterTable>
         </b-col>
+        <b-col cols="3">
+          <b-row>
+            <BoxOne :contentBoxOne="contentBoxOne"></BoxOne>
+          </b-row>
+          <b-row>
+            <BoxTwo :contentBoxTwo="contentBoxTwo"></BoxTwo>
+          </b-row>
+        </b-col>
       </b-row>
     </b-container>
   </div>
 </template>
 
 <script>
-import axios from "axios"; // For the api-rest query
-import Numbers from "./components/Numbers"; //component to show winning numbers
-import CenterTable from "./components/CenterTable"; // Central table width data
+import axios from "axios"; 
+import Numbers from "./components/Numbers";
+import CenterTable from "./components/CenterTable";
+import BoxOne from "./components/BoxOne";
+import BoxTwo from "./components/BoxTwo";
 
 export default {
   name: "App",
   components: {
     Numbers,
-    CenterTable
+    CenterTable,
+    BoxOne,
+    BoxTwo
+  },
+  data() {
+    return {
+      numbers: [],
+      tableContent: {},
+      table: [],
+      contentBoxOne: {},
+      contentBoxTwo: {},
+      cadena: String,
+      date: {}
+    };
   },
   methods: {
     comas(str) {
@@ -79,14 +103,7 @@ export default {
     
   },
   
-  data() {
-    return {
-      numbers: [],
-      date: {},
-      tableContent: {},
-      table: []
-    };
-  },
+
   mounted() {
     axios
       .get("https://www.lottoland.com/api/drawings/euroJackpot")
@@ -109,11 +126,36 @@ export default {
         
         this.table.shift();
         this.table.sort((a, b) => b.orden - a.orden);
+
+        this.contentBoxOne = response.data.last;
+        this.contentBoxTwo = response.data.last.date;
       })
       .catch(error => {
         console.log(error);
       })
       .finally(() => (this.loading = false));
   }
-};
+}
 </script>
+
+<style>
+#app {
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  margin-top: 60px;
+  font-size: 14px;
+}
+.banner{
+  margin-bottom:  40px;
+  padding: 17px;
+  
+}
+.cors {
+  font-weight: 800;
+  font-size: 20px;
+  color: #69a507;
+}
+.red{
+  color:red;
+}
+</style>
